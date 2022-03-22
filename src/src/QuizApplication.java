@@ -37,8 +37,7 @@ public class QuizApplication {
         directory = scan.nextLine();
         System.out.print(filename);
         name = scan.nextLine();
-        quiz = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user2.csv");
+        quiz = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user1.csv");
         System.out.println(quiz.size());
-        System.out.println(quiz.get(2).getCourseName());
     }
 }
