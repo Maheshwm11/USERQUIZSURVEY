@@ -42,5 +42,7 @@ public class QuizApplication {
         System.out.print(filename);
         name = scan.nextLine();
         quiz = Data.readInputFile(directory, name);
+        System.out.println(quiz.size());
+        System.out.println(quiz.get(2).getCourseName());
     }
 }
