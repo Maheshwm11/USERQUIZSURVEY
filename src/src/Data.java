@@ -13,15 +13,13 @@ public class Data {
         try {
             List<String[]> result = reader.readFile(f, 1);
             for (String[] array : result) {
-                if (array.length >= 9) {
-                    if (array[6].equals("")) {
-                        array[6] = String.valueOf(Integer.MAX_VALUE);
-                        array[7] = String.valueOf(Integer.MAX_VALUE);
-                    }
-                    Quiz temp = new Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
-                            Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], false, false);
-                    quizzes.add(temp);
+                if (array[6].equals("")) {
+                    array[6] = String.valueOf(Integer.MAX_VALUE);
+                    array[7] = String.valueOf(Integer.MAX_VALUE);
                 }
+                Quiz temp = new Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
+                        Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], false, false);
+                quizzes.add(temp);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +32,7 @@ public class Data {
         File f = new File("result.tsv");
         FileOutputStream fos = new FileOutputStream(f, false);
         try (PrintWriter pw = new PrintWriter(fos)) {
-            pw.println("Student Name: "+ studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes);
+            pw.println("Student Name: " + studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes);
             System.out.println("Results Exported!");
         } catch (Exception e) {
             e.printStackTrace();
