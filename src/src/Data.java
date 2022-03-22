@@ -1,3 +1,5 @@
+package src.src;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -21,5 +23,16 @@ public class Data {
         return quizzes;
     }
 
+    public static boolean writeData(String studentName, String studentEmail, float finalGrade, String notes)
+            throws FileNotFoundException {
+        File f = new File("result.tsv");
+        FileOutputStream fos = new FileOutputStream(f, false);
+        try (PrintWriter pw = new PrintWriter(fos)) {
+            pw.println("Student Name: "+ studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes);
+            System.out.println("Results Exported!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
-

@@ -1,3 +1,5 @@
+package src.src;
+
 public class Quiz {
     private String courseName;
     private String quizName;

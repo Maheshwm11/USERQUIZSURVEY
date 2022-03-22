@@ -1,4 +1,5 @@
 package src.src;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,4 +14,8 @@ public class QuizApplication {
     private static float quizDistribution;
     private static float taskDistribution;
     private static float finalDistribution;
+
+    public static void main(String[] args) throws IOException {
+        Data.writeData("Jacob", "jacob@gmai.com", 21, "2 Tasks ungraded");
+    }
 }
