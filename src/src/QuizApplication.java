@@ -1,5 +1,3 @@
-package src.src;
-
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ public class QuizApplication {
     private static float finalDistribution;
     private static boolean exitProgram = true;
     private static String choice;
-    private static ArrayList<src.src.Quiz> quiz;
+    private static ArrayList<Quiz> quiz;
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
@@ -39,7 +37,7 @@ public class QuizApplication {
         directory = scan.nextLine();
         System.out.print(filename);
         name = scan.nextLine();
-        quiz = src.src.Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user2.csv");
+        quiz = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user2.csv");
         System.out.println(quiz.size());
         System.out.println(quiz.get(2).getCourseName());
     }

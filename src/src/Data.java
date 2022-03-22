@@ -1,5 +1,3 @@
-package src.src;
-
 import com.mkyong.io.csv.CsvParserSimple;
 
 import java.io.*;
@@ -7,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
-    public static ArrayList<src.src.Quiz> readInputFile(String directory, String name) {
+    public static ArrayList<Quiz> readInputFile(String directory, String name) {
         File dir = new File(directory);
-        ArrayList<src.src.Quiz> quizzes = new ArrayList<>();
+        ArrayList<Quiz> quizzes = new ArrayList<>();
         File f = new File(dir, name);
         CsvParserSimple reader = new CsvParserSimple();
         try {
@@ -20,7 +18,7 @@ public class Data {
                         array[6] = String.valueOf(Integer.MAX_VALUE);
                         array[7] = String.valueOf(Integer.MAX_VALUE);
                     }
-                    src.src.Quiz temp = new src.src.Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
+                    Quiz temp = new Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
                             Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], false, false);
                     quizzes.add(temp);
                 }
