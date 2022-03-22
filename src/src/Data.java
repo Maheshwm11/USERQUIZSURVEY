@@ -3,10 +3,10 @@ import com.mkyong.io.csv.CsvParserSimple;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.HashSet;
 
 public class Data {
-    public static ArrayList<Quiz> readInputFile(String directory, String name) {
+    public static ArrayList<ArrayList<Quiz>> readInputFile(String directory, String name) {
         File dir = new File(directory);
         ArrayList<Quiz> quizzes = new ArrayList<>();
         File f = new File(dir, name);
@@ -37,7 +37,27 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return quizzes;
+        return read2D(quizzes);
+    }
+
+    public static ArrayList<ArrayList<Quiz>> read2D(ArrayList<Quiz> quizzes) {
+        ArrayList<String> temp = new ArrayList<>();
+        ArrayList<ArrayList<Quiz>> quizzes2D = new ArrayList<>();
+        for (Quiz quiz : quizzes) {
+            temp.add(quiz.getCourseName());
+        }
+        HashSet<String> unique = new HashSet<>(temp);
+        ArrayList<String> tempUnique = new ArrayList<>(unique);
+        for (int i = 0; i < tempUnique.size(); i++) {
+            ArrayList<Quiz> temp1 = new ArrayList<>();
+            for (Quiz quiz : quizzes) {
+                if (quiz.getCourseName().equals(tempUnique.get(i))) {
+                    temp1.add(quiz);
+                }
+            }
+            quizzes2D.add(temp1);
+        }
+        return quizzes2D;
     }
 
     public static boolean writeData(String studentName, String studentEmail, float finalGrade, String notes)

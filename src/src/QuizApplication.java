@@ -16,7 +16,7 @@ public class QuizApplication {
     private static float finalDistribution;
     private static boolean exitProgram = true;
     private static String choice;
-    private static ArrayList<Quiz> quiz;
+    private static ArrayList<ArrayList<Quiz>> quiz;
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
@@ -38,6 +38,10 @@ public class QuizApplication {
         System.out.print(filename);
         name = scan.nextLine();
         quiz = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user1.csv");
-        System.out.println(quiz.size());
+        int sum = 0;
+        for (int i = 0; i < quiz.size(); i++) {
+            sum += quiz.get(i).size();
+        }
+        System.out.println(sum);
     }
 }
