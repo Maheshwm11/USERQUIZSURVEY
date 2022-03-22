@@ -1,9 +1,7 @@
 package src.src;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.*;
 import java.util.ArrayList;
 
 public class QuizApplication {
@@ -20,7 +18,7 @@ public class QuizApplication {
     private static float finalDistribution;
     private static boolean exitProgram = true;
     private static String choice;
-    private static ArrayList<Quiz> quiz;
+    private static ArrayList<src.src.Quiz> quiz;
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
@@ -41,7 +39,7 @@ public class QuizApplication {
         directory = scan.nextLine();
         System.out.print(filename);
         name = scan.nextLine();
-        quiz = Data.readInputFile(directory, name);
+        quiz = src.src.Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user2.csv");
         System.out.println(quiz.size());
         System.out.println(quiz.get(2).getCourseName());
     }

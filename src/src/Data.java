@@ -1,23 +1,31 @@
 package src.src;
 
+import com.mkyong.io.csv.CsvParserSimple;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data {
-    public static ArrayList<Quiz> readInputFile(String directory, String name) {
+    public static ArrayList<src.src.Quiz> readInputFile(String directory, String name) {
         File dir = new File(directory);
-        ArrayList<Quiz> quizzes = new ArrayList<>();
+        ArrayList<src.src.Quiz> quizzes = new ArrayList<>();
         File f = new File(dir, name);
-        try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-            String line = bfr.readLine();
-            while (line != null) {
-                String[] array = line.split(",");
-                Quiz temp = new Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
-                        Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], false, false);
-                quizzes.add(temp);
-                line = bfr.readLine();
+        CsvParserSimple reader = new CsvParserSimple();
+        try {
+            List<String[]> result = reader.readFile(f, 1);
+            for (String[] array : result) {
+                if (array.length >= 9) {
+                    if (array[6].equals("")) {
+                        array[6] = String.valueOf(Integer.MAX_VALUE);
+                        array[7] = String.valueOf(Integer.MAX_VALUE);
+                    }
+                    src.src.Quiz temp = new src.src.Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
+                            Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], false, false);
+                    quizzes.add(temp);
+                }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return quizzes;
