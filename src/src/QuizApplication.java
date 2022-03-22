@@ -20,6 +20,7 @@ public class QuizApplication {
     private static float finalDistribution;
     private static boolean exitProgram = true;
     private static String choice;
+    private static ArrayList<Quiz> quiz;
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
@@ -40,6 +41,6 @@ public class QuizApplication {
         directory = scan.nextLine();
         System.out.print(filename);
         name = scan.nextLine();
-        Data.readInputFile(directory, name);
+        quiz = Data.readInputFile(directory, name);
     }
 }
