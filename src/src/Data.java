@@ -26,8 +26,12 @@ public class Data {
                 if (!array[1].toLowerCase().contains("quiz") && Integer.parseInt(array[5]) > 10) {
                     isExam = true;
                 }
+                Boolean isUntitled = false;
+                if (array[1].toLowerCase().contains("untitled")) {
+                    isUntitled = true;
+                }
                 Quiz temp = new Quiz(array[0], array[1], array[2], array[3], array[4], Integer.parseInt(array[5]),
-                        Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], isExam, isTask);
+                        Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], isExam, isTask, isUntitled);
                 quizzes.add(temp);
             }
         } catch (Exception e) {

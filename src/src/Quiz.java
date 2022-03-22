@@ -10,10 +10,11 @@ public class Quiz {
     private String firstQuestion;
     private boolean isExam;
     private boolean isTask;
+    private boolean isUntitled;
 
     public Quiz(String courseName, String quizName, String studentName, String studentEmail,
                 String timestamp, int totalQuestions, int correctQuestions, float grade,
-                String firstQuestion, boolean isExam, boolean isTask) {
+                String firstQuestion, boolean isExam, boolean isTask, boolean isUntitled) {
         this.courseName = courseName;
         this.quizName = quizName;
         this.studentName = studentName;
@@ -25,6 +26,7 @@ public class Quiz {
         this.firstQuestion = firstQuestion;
         this.isExam = isExam;
         this.isTask = isTask;
+        this.isUntitled = isUntitled;
     }
 
     public String getCourseName() {
@@ -112,6 +114,14 @@ public class Quiz {
     }
 
     public void setTask(boolean task) {
+        isTask = task;
+    }
+
+    public boolean isUntitled() {
+        return isTask;
+    }
+
+    public void setUntitled(boolean task) {
         isTask = task;
     }
 }
