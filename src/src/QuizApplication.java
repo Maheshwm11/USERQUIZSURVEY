@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -11,12 +13,9 @@ public class QuizApplication {
     private static String filename = "Please enter the CSV file name: ";
     private static String directory;
     private static String name;
-    private static float quizDistribution;
-    private static float taskDistribution;
-    private static float finalDistribution;
     private static boolean exitProgram = true;
     private static String choice;
-    private static ArrayList<ArrayList<Quiz>> quiz;
+    private static ArrayList<ArrayList<Quiz>> quiz2D;
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
@@ -33,15 +32,120 @@ public class QuizApplication {
                 System.out.println(error + "\n");
             }
         }
-        System.out.print(filedirectory);
         directory = scan.nextLine();
-        System.out.print(filename);
         name = scan.nextLine();
-        quiz = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user1.csv");
-        int sum = 0;
-        for (int i = 0; i < quiz.size(); i++) {
-            sum += quiz.get(i).size();
+        quiz2D = Data.readInputFile("/Users/madhav/IdeaProjects/USERQUIZSURVEY/Database", "user1.csv");
+        calculate(quiz2D);
+    }
+
+    public static void calculate(ArrayList<ArrayList<Quiz>> quiz2D) throws FileNotFoundException {
+        for (ArrayList<Quiz> quiz : quiz2D) {
+            String courseName = quiz.get(0).getCourseName();
+            String studentName = quiz.get(0).getStudentName();
+            String studentEmail = quiz.get(0).getStudentEmail();
+            float finalGrade;
+            String notes = "";
+            HashMap<String, Integer> strictlyQuizzes = new HashMap<>();
+            int totalTasks = 0;
+            int gradedTasks = 0;
+            for (Quiz quizlet : quiz) {
+                if (!quizlet.isTask() && !quizlet.isExam()) {
+                    if (quizlet.isUntitled()) {
+                        if (strictlyQuizzes.containsKey(quizlet.getFirstQuestion())) {
+                            int i = strictlyQuizzes.get(quizlet.getFirstQuestion());
+                            i++;
+                            strictlyQuizzes.put(quizlet.getFirstQuestion(), i);
+                        } else {
+                            strictlyQuizzes.put(quizlet.getFirstQuestion(), 1);
+                        }
+                    } else {
+                        if (strictlyQuizzes.containsKey(quizlet.getQuizName())) {
+                            int i = strictlyQuizzes.get(quizlet.getQuizName());
+                            i++;
+                            strictlyQuizzes.put(quizlet.getQuizName(), i);
+                        } else {
+                            strictlyQuizzes.put(quizlet.getQuizName(), 1);
+                        }
+                    }
+                }
+            }
+            for (Quiz quizlet : quiz) {
+                if (quizlet.isTask()) {
+                    totalTasks++;
+                    if (quizlet.getCorrectQuestions() != Integer.MAX_VALUE) {
+                        gradedTasks++;
+                    }
+                }
+            }
+            int ungradedTasks = totalTasks - gradedTasks;
+            int sum = 0;
+            for (int f : strictlyQuizzes.values()) {
+                sum += f;
+            }
+            boolean twoRetakePenalty = (sum / (float) strictlyQuizzes.size()) > 1.1;
+            boolean secondaryGrading = gradedTasks > 0;
+
+            float examScore = 0;
+            for (Quiz quizlet : quiz) {
+                if (quizlet.isExam()) {
+                    examScore = quizlet.getGrade();
+                }
+            }
+            float quizScore = 0;
+            for (String str : strictlyQuizzes.keySet()) {
+                Quiz main = null;
+                for (Quiz quizlet : quiz) {
+                    if (quizlet.isUntitled()) {
+                        if (str.equals(quizlet.getFirstQuestion())) {
+                            main = quizlet;
+                            break;
+                        }
+                    } else {
+                        if (str.equals(quizlet.getQuizName())) {
+                            main = quizlet;
+                            break;
+                        }
+                    }
+                }
+                if (twoRetakePenalty) {
+                    if (strictlyQuizzes.get(str) >= 2) {
+                        quizScore += 60;
+                    } else {
+                        quizScore += main.getGrade();
+                    }
+                } else {
+                    if (strictlyQuizzes.get(str) >= 3) {
+                        quizScore += 60;
+                    } else if (strictlyQuizzes.get(str) == 2) {
+                        if (main.getGrade() <= 80) {
+                            quizScore += main.getGrade();
+                        } else {
+                            quizScore += 80;
+                        }
+                    } else {
+                        quizScore += main.getGrade();
+                    }
+                }
+            }
+            quizScore = quizScore / strictlyQuizzes.size();
+            float taskScore = 0;
+            if (secondaryGrading) {
+                for (Quiz quizlet : quiz) {
+                    if (quizlet.isTask()) {
+                        if (quizlet.getCorrectQuestions() != Integer.MAX_VALUE) {
+                            taskScore += quizlet.getGrade();
+                        }
+                    }
+                }
+                taskScore = taskScore / (float) gradedTasks;
+                finalGrade = 0.6f * examScore + 0.2f * quizScore + 0.2f * taskScore;
+            } else {
+                finalGrade = 0.6f * examScore + 0.4f * quizScore;
+            }
+            if (ungradedTasks > 0) {
+                notes += "Note: Student has " + ungradedTasks + " ungraded tasks.";
+            }
+            Data.writeData(courseName, studentName, studentEmail, finalGrade, notes);
         }
-        System.out.println(sum);
     }
 }

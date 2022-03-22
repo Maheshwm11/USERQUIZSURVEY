@@ -60,13 +60,13 @@ public class Data {
         return quizzes2D;
     }
 
-    public static boolean writeData(String studentName, String studentEmail, float finalGrade, String notes)
+    public static boolean writeData(String course, String studentName, String studentEmail, float finalGrade, String notes)
             throws FileNotFoundException {
         File f = new File("result.tsv");
-        FileOutputStream fos = new FileOutputStream(f, false);
+        FileOutputStream fos = new FileOutputStream(f, true);
         try (PrintWriter pw = new PrintWriter(fos)) {
-            pw.println("Student Name: " + studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes);
-            System.out.println("Results Exported!");
+            pw.println("Course Name: " + course + "\t" +"Student Name: " + studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes + "\n");
+            System.out.println("Results exported for one course!");
         } catch (Exception e) {
             e.printStackTrace();
         }
