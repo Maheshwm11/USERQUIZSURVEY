@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Data {
-    public ArrayList<Quiz> readInputFile(String directory, String name) {
+    public static ArrayList<Quiz> readInputFile(String directory, String name) {
         File dir = new File(directory);
         ArrayList<Quiz> quizzes = new ArrayList<>();
         File f = new File(dir, name);
