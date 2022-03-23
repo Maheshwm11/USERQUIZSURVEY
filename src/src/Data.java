@@ -14,7 +14,7 @@ public class Data {
         try {
             List<String[]> result = reader.readFile(f, 1);
             for (String[] array : result) {
-                Boolean isTask = false;
+                boolean isTask = false;
                 if (array[6].equals("")) {
                     array[6] = String.valueOf(Integer.MAX_VALUE);
                     array[7] = String.valueOf(Integer.MAX_VALUE);
@@ -22,11 +22,11 @@ public class Data {
                 if (array[1].toLowerCase().contains("task") || array[6].equals(String.valueOf(Integer.MAX_VALUE))) {
                     isTask = true;
                 }
-                Boolean isExam = false;
-                if (!array[1].toLowerCase().contains("quiz") && Integer.parseInt(array[5]) > 10) {
+                boolean isExam = false;
+                if (array[1].toLowerCase().contains("exam") && Integer.parseInt(array[5]) > 40) {
                     isExam = true;
                 }
-                Boolean isUntitled = false;
+                boolean isUntitled = false;
                 if (array[1].toLowerCase().contains("untitled")) {
                     isUntitled = true;
                 }

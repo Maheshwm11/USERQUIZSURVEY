@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -89,11 +90,15 @@ public class QuizApplication {
             boolean secondaryGrading = gradedTasks > 0;
 
             float examScore = 0;
+            int count = 0;
             for (Quiz quizlet : quiz) {
                 if (quizlet.isExam()) {
                     examScore = quizlet.getGrade();
+                    count++;
                 }
             }
+            boolean tertiaryGrading = count == 0;
+
             float quizScore = 0;
             for (String str : strictlyQuizzes.keySet()) {
                 Quiz main = null;
@@ -132,7 +137,7 @@ public class QuizApplication {
             }
             quizScore = quizScore / strictlyQuizzes.size();
             float taskScore = 0;
-            if (secondaryGrading) {
+            if (secondaryGrading && !tertiaryGrading) {
                 for (Quiz quizlet : quiz) {
                     if (quizlet.isTask()) {
                         if (quizlet.getCorrectQuestions() != Integer.MAX_VALUE) {
@@ -142,8 +147,26 @@ public class QuizApplication {
                 }
                 taskScore = taskScore / (float) gradedTasks;
                 finalGrade = 0.6f * examScore + 0.2f * quizScore + 0.2f * taskScore;
-            } else {
+            } else if (!secondaryGrading && !tertiaryGrading) {
                 finalGrade = 0.6f * examScore + 0.4f * quizScore;
+            } else if (secondaryGrading) {
+                for (Quiz quizlet : quiz) {
+                    if (quizlet.isTask()) {
+                        if (quizlet.getCorrectQuestions() != Integer.MAX_VALUE) {
+                            taskScore += quizlet.getGrade();
+                        }
+                    }
+                }
+                taskScore = taskScore / (float) gradedTasks;
+                finalGrade = 0.4f * quizScore + 0.6f * taskScore;
+            } else {
+                if (ungradedTasks > 0) {
+                    finalGrade = 0.4f * quizScore;
+                    float updatedGrade = finalGrade + 0.6f * 70;
+                    notes += "Updated Grade: " + String.format("%.2f", updatedGrade) + " (temporary 70% in tasks for ungraded tasks only courses). ";
+                } else {
+                    finalGrade = quizScore;
+                }
             }
             if (ungradedTasks > 0) {
                 notes += "Note: Student has " + ungradedTasks + " ungraded tasks.";
