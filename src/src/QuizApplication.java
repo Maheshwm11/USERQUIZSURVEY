@@ -41,6 +41,7 @@ public class QuizApplication {
     }
 
     public static void calculate(ArrayList<ArrayList<Quiz>> quiz2D) throws FileNotFoundException {
+        int index = 1;
         for (ArrayList<Quiz> quiz : quiz2D) {
             String courseName = quiz.get(0).getCourseName();
             String studentName = quiz.get(0).getStudentName();
@@ -147,7 +148,8 @@ public class QuizApplication {
             if (ungradedTasks > 0) {
                 notes += "Note: Student has " + ungradedTasks + " ungraded tasks.";
             }
-            Data.writeData(courseName, studentName, studentEmail, finalGrade, notes);
+            Data.writeData(courseName, index, studentName, studentEmail, finalGrade, notes);
+            index++;
         }
     }
 }
