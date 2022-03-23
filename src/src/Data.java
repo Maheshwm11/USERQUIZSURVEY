@@ -60,12 +60,20 @@ public class Data {
         return quizzes2D;
     }
 
-    public static boolean writeData(String course, String studentName, String studentEmail, float finalGrade, String notes, String name2)
+    public static boolean writeData(String course, String studentName, String studentEmail, float finalGrade,
+            String notes)
             throws FileNotFoundException {
-        File f = new File(name2);
+        File f = new File(studentName + " (" + studentEmail + ").tsv");
         FileOutputStream fos = new FileOutputStream(f, true);
         try (PrintWriter pw = new PrintWriter(fos)) {
-            pw.println("Course Name: " + course + "\t" +"Student Name: " + studentName + "\t" + "Email: " + studentEmail + "\t" + "Final Grade: " + finalGrade + "\t" + "Notes: " + notes + "\n");
+            if (notes.equals("")) {
+                pw.println("Course Name: " + course + "\t" + "Student Name: " + studentName + "\t" + "Email: "
+                        + studentEmail + "\t" + "Final Grade: " + Math.round(finalGrade * 100.0) / 100.0 + "\t" + "\n");
+            } else {
+                pw.println("Course Name: " + course + "\t" + "Student Name: " + studentName + "\t" + "Email: "
+                        + studentEmail + "\t" + "Final Grade: " + Math.round(finalGrade * 100.0) / 100.0 + "\t"
+                        + "Notes: " + notes + "\n");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

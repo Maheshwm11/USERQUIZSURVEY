@@ -11,10 +11,8 @@ public class QuizApplication {
     private static String exit = "Thank you for using the User Quiz Calculator.";
     private static String filedirectory = "Please enter the directory for the CSV file: ";
     private static String filename = "Please enter the CSV file name: ";
-    private static String filename2 = "Please enter the TSV (output) file name (including .tsv at the end):";
     private static String directory;
     private static String name;
-    private static String name2;
     private static boolean exitProgram = true;
     private static String choice;
     private static ArrayList<ArrayList<Quiz>> quiz2D;
@@ -30,11 +28,9 @@ public class QuizApplication {
                 directory = scan.nextLine();
                 System.out.println(filename);
                 name = scan.nextLine();
-                System.out.println(filename2);
-                name2 = scan.nextLine();
                 quiz2D = Data.readInputFile(directory, name);
-                calculate(quiz2D, name2);
-                System.out.println("Results exported for courses! Check file!");
+                calculate(quiz2D);
+                System.out.println("Results exported for student Check file!\n");
             } else if (choice.equals("2")) {
                 System.out.println(exit);
                 return;
@@ -44,7 +40,7 @@ public class QuizApplication {
         }
     }
 
-    public static void calculate(ArrayList<ArrayList<Quiz>> quiz2D, String name2) throws FileNotFoundException {
+    public static void calculate(ArrayList<ArrayList<Quiz>> quiz2D) throws FileNotFoundException {
         for (ArrayList<Quiz> quiz : quiz2D) {
             String courseName = quiz.get(0).getCourseName();
             String studentName = quiz.get(0).getStudentName();
@@ -151,7 +147,7 @@ public class QuizApplication {
             if (ungradedTasks > 0) {
                 notes += "Note: Student has " + ungradedTasks + " ungraded tasks.";
             }
-            Data.writeData(courseName, studentName, studentEmail, finalGrade, notes, name2);
+            Data.writeData(courseName, studentName, studentEmail, finalGrade, notes);
         }
     }
 }
