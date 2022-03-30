@@ -1,17 +1,16 @@
-import com.mkyong.io.csv.CsvParserSimple;
-
 import java.io.*;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 
 public class Data {
-    public static ArrayList<ArrayList<Quiz>> readInputFile(String directory, String name) {
-        File dir = new File(directory);
+    private static String dirName = FileSystems.getDefault().getPath("").toAbsolutePath() + "/Output";
+
+    public static ArrayList<ArrayList<Quiz>> readInputFile(String name) throws Exception{
         ArrayList<Quiz> quizzes = new ArrayList<>();
-        File f = new File(dir, name);
+        File f = new File(name);
         CsvParserSimple reader = new CsvParserSimple();
-        try {
             List<String[]> result = reader.readFile(f, 1);
             for (String[] array : result) {
                 boolean isTask = false;
@@ -34,9 +33,6 @@ public class Data {
                         Integer.parseInt(array[6]), Integer.parseInt(array[7]), array[8], isExam, isTask, isUntitled);
                 quizzes.add(temp);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return read2D(quizzes);
     }
 
@@ -63,7 +59,11 @@ public class Data {
     public static boolean writeData(String course, int index, String studentName, String studentEmail, float finalGrade,
             String notes)
             throws FileNotFoundException {
-        File f = new File(studentName + " (" + studentEmail + ").tsv");
+        File dir = new File(dirName);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File f = new File(dir, studentName + " (" + studentEmail + ").tsv");
         FileOutputStream fos = new FileOutputStream(f, true);
         try (PrintWriter pw = new PrintWriter(fos)) {
             if (notes.equals("")) {

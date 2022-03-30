@@ -18,18 +18,16 @@ public class QuizApplication {
     private static String choice;
     private static ArrayList<ArrayList<Quiz>> quiz2D;
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.println(welcomeMessage);
         while (exitProgram) {
             System.out.println(menu);
             choice = scan.nextLine();
             if (choice.equals("1")) {
-                System.out.println(filedirectory);
-                directory = scan.nextLine();
                 System.out.println(filename);
                 name = scan.nextLine();
-                quiz2D = Data.readInputFile(directory, name);
+                quiz2D = Data.readInputFile(name);
                 calculate(quiz2D);
                 System.out.println("Results exported for student Check file!\n");
             } else if (choice.equals("2")) {
@@ -39,7 +37,7 @@ public class QuizApplication {
                 System.out.println(error + "\n");
             }
         }
-    }
+    } */
 
     public static void calculate(ArrayList<ArrayList<Quiz>> quiz2D) throws FileNotFoundException {
         int index = 1;
