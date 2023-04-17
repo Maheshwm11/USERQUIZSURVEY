@@ -10,7 +10,7 @@ The Application has the following features:
 - Calculates final grades for the student based on their quiz and exam scores for each course.
 - Exports the results to a TSV file.
 
-Note: The grading system in the calculate function depends on a lot of external factors that are hard coded for now. If you want the application to be modular, you will have to update the constants.
+Note: The grading system in the calculate function depends on some external factors that are hard coded for now. You might have to update the constants for your specific needs.
 
 ## Prerequisites
 
