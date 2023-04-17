@@ -29,7 +29,7 @@ Before running the Quiz Application, you need to have the following:
 
 ## Usage
 
-To use the Quiz Application, follow these steps:
+You can use the quiz application by using the finalgrade.jar OR you can follow these steps:
 
 1. Clone the repository to your local machine.
 2. Open the QuizApplication.java file in your preferred Java IDE.
