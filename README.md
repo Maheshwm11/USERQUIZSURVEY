@@ -8,7 +8,7 @@ The Quiz Application has the following features:
 
 - Imports quiz data from a CSV file.
 - Calculates final grades for students based on their quiz and exam scores.
-- Exports the results to a CSV file.
+- Exports the results to a TSV file.
 
 Note: The grading system in the calcultae function depends on a lot of external factors that are hard coded for now. If you want the application to be modular, you will have to update the constants.
 
