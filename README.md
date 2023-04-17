@@ -10,7 +10,7 @@ The Quiz Application has the following features:
 - Calculates final grades for students based on their quiz and exam scores.
 - Exports the results to a TSV file.
 
-Note: The grading system in the calcultae function depends on a lot of external factors that are hard coded for now. If you want the application to be modular, you will have to update the constants.
+Note: The grading system in the calculate function depends on a lot of external factors that are hard coded for now. If you want the application to be modular, you will have to update the constants.
 
 ## Prerequisites
 
