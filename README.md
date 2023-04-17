@@ -7,7 +7,7 @@ The Student Grading Application is a Java program that reads and processes CSV f
 The Application has the following features:
 
 - Imports student data from a CSV file.
-- Calculates final grades for student based on their quiz and exam scores for each course.
+- Calculates final grades for the student based on their quiz and exam scores for each course.
 - Exports the results to a TSV file.
 
 Note: The grading system in the calculate function depends on a lot of external factors that are hard coded for now. If you want the application to be modular, you will have to update the constants.
