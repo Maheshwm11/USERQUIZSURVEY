@@ -1,6 +1,6 @@
 # Quiz Application
 
-The Quiz Application is a Java program that reads and processes CSV files containing quiz data. It calculates the final grades for students based on their quiz and exam scores, and exports the results to a CSV file.
+The Quiz Application is a Java program that reads and processes CSV files containing quiz data. It calculates the final grades for students based on their quiz and exam scores, and exports the results to a TSV file.
 
 ## Features
 
