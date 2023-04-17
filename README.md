@@ -37,5 +37,5 @@ You can use the quiz application by using the finalgrade.jar OR you can follow t
 4. Compile and run the QuizApplication.java file to start the Quiz Application.
 5. Enter the directory and filename of the CSV file containing the quiz data when prompted.
 6. The Quiz Application will process the quiz data and calculate the final grades for students.
-7. The results will be exported to a CSV file named "student Check file.csv" in the same directory as the input file.
-8. You can view the final grades in the exported CSV file.
+7. The results will be exported to a TSV file named "student name (student email).tsv" in the same directory as the input file.
+8. You can view the final grades in the exported TSV file.
